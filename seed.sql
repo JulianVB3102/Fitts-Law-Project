@@ -31,7 +31,7 @@ CREATE TABLE tasks (
     distance INTEGER,
     direction TEXT
 );
-
+--added block and task for data integrity (makes sure everything added points to an existing block and task)
 CREATE TABLE trials (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     block_id INTEGER REFERENCES blocks(id),
