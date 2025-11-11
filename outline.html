@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fitts' Law Experiment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!--Consent-->
+  <!--this section will be hidden with JS after user clicks agree-->
+  <div id="consentScreen">
+    <h2>Welcome to our take on the Fitts’ Law Experiment</h2>
+    <p>
+      This study measures your pointing and clicking performance using your mouse or trackpad.
+      You must be 18 or older to participate. Your results will be stored locally (this device only)
+      and used only for educational purposes.
+    </p>
+    <button id="agreeBtn" class="btn">I Agree</button>
+  </div>
+
+  <!--main Interface - holds everything you see as you run through the trials-->
+  <div class="wrap">
+    <h1>Fitts' Law Point-and-Click Experiment</h1>
+    <!--bar at the top of the page which shows our fields + current trial and a download button so we can go straight to CSV with JS event listener-->
+    <div class="bar">
+      <span class="pill" id="pid">Participant: —</span>
+      <span class="pill" id="bprog">Block — / —</span>
+      <span class="pill" id="tprog">Trial — / —</span>
+      <span class="pill" id="info">Idle</span>
+      <button class="btn" id="startBtn">Start Block</button>
+      <button class="btn" id="csvBtn" disabled>Download CSV</button>
+    </div>
+<!--where the game is played. target = circle user must click. flashes indicate misses or hits-->
+    <div class="stage" id="stage">
+      <div class="center-hint" id="startSquare">Click<br>to start</div>
+      <div class="target" id="target"></div>
+      <div class="flash ok" id="flashOk">Hit!</div>
+      <div class="flash miss" id="flashMiss">Miss</div>
+    </div>
+
+    <div class="controls">
+      <input id="participantInput" placeholder="participant_id (optional)" />
+      <input id="blocksInput" type="number" min="1" max="20" value="10" />
+    </div>
+  </div>
+<!--allows HTML to talk to JS-->
+  <script src="app.js"></script>
+</body>
+</html>
