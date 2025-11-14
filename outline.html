@@ -1,51 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Fitts' Law Experiment</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Fitts' Law Experiment</title>
+  <link rel="stylesheet" href="outline.css" />
 </head>
+</br>
 <body>
+  <div class="container">
+    <header>
+      <div class="title">Fitts' Law Experiment</div>
+      <div class="muted small">4 diameters × 4 distances × 2 directions × 10 blocks = 320 trials</div>
+    </header>
 
-  <!--Consent-->
-  <!--this section will be hidden with JS after user clicks agree-->
-  <div id="consentScreen">
-    <h2>Welcome to our take on the Fitts’ Law Experiment</h2>
-    <p>
-      This study measures your pointing and clicking performance using your mouse or trackpad.
-      You must be 18 or older to participate. Your results will be stored locally (this device only)
-      and used only for educational purposes.
-    </p>
-    <button id="agreeBtn" class="btn">I Agree</button>
+    <!-- MAIN CONTENT AREA -->
+    <div class="content">
+      <!-- Welcome / Consent Screen -->
+      <div id="welcome" class="card stack" role="region" aria-label="Welcome and consent">
+        <div>
+          <h2>Welcome</h2>
+          <p class="muted">This study measures your pointing performance by asking you to move from a center "home" to click a target circle as quickly and accurately as possible.</p>
+          <p class="hint">You must be 18+ to participate. Data recorded: timing, cursor path length, hits/misses, and task parameters. No personal identifiers are collected in this study.</p>
+        </div>
+        <div class="grid">
+          <div class="col">
+            <label for="pid">Participant ID (e.g., P01)</label>
+            <input id="pid" type="text" placeholder="P01" />
+          </div>
+          <div class="col">
+            <label for="device">Input device</label>
+            <select id="device">
+              <option>Mouse</option>
+              <option>Trackpad</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label><input id="consent" type="checkbox" /> I am 18+ and I agree to participate.</label>
+        </div>
+        <div class="row">
+          <button id="begin" class="btn">I Agree — Begin</button>
+          <button id="howto" class="btn secondary">Show Instructions</button>
+        </div>
+        <div id="instructions" class="hint" style="display:none">
+          <ol>
+            <li>Place the cursor over the center <span class="kbd">Home</span> dot.</li>
+            <li>Press the Home dot to start a trial. A target circle will appear either left or right.</li>
+            <li>Move to the target and click it as fast and accurately as you can.</li>
+            <li>If you miss (click outside), it still counts and the next trial will begin.</li>
+            <li>Complete all trials. You can pause between blocks if needed.</li>
+          </ol>
+          <p>Tips: Use the same seating and device position for consistency. Avoid screen zoom changes during the test.</p>
+        </div>
+      </div>
+
+      <!-- Experiment Stage -->
+      <div id="lab" class="stage" style="display:none" role="application" aria-label="Experiment stage">
+        <div id="banner" class="banner">Block <span id="blockNum">1</span>/10 · Trial <span id="trialNum">1</span>/32</div>
+        <div id="home" class="home" role="button" aria-label="Home"></div>
+        <div id="target" class="target" style="display:none"></div>
+      </div>
+
+      <!-- Completion Screen -->
+      <div id="done" class="card stack center" style="display:none">
+        <h2>All set — thank you!</h2>
+        <p class="muted">You've completed 320 trials. You can download your data below.</p>
+        <div id="summary" class="stack"></div>
+        <div class="downloads">
+          <button id="dlCsv" class="btn">Download CSV</button>
+          <button id="dlJson" class="btn secondary">Download JSON</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="progress">
+        <div class="pill">Participant: <span id="pLabel" class="muted">—</span></div>
+        <div class="pill">Device: <span id="dLabel" class="muted">—</span></div>
+        <div class="pill">Completed: <span id="completed" class="muted">0/320</span></div>
+        <div class="pill">Errors: <span id="errors" class="muted">0</span></div>
+        <div class="pill">Current ID: <span id="idVal" class="muted">—</span></div>
+      </div>
+    </br>
+    </footer>
   </div>
-
-  <!--main Interface - holds everything you see as you run through the trials-->
-  <div class="wrap">
-    <h1>Fitts' Law Point-and-Click Experiment</h1>
-    <!--bar at the top of the page which shows our fields + current trial and a download button so we can go straight to CSV with JS event listener-->
-    <div class="bar">
-      <span class="pill" id="pid">Participant: —</span>
-      <span class="pill" id="bprog">Block — / —</span>
-      <span class="pill" id="tprog">Trial — / —</span>
-      <span class="pill" id="info">Idle</span>
-      <button class="btn" id="startBtn">Start Block</button>
-      <button class="btn" id="csvBtn" disabled>Download CSV</button>
-    </div>
-<!--where the game is played. target = circle user must click. flashes indicate misses or hits-->
-    <div class="stage" id="stage">
-      <div class="center-hint" id="startSquare">Click<br>to start</div>
-      <div class="target" id="target"></div>
-      <div class="flash ok" id="flashOk">Hit!</div>
-      <div class="flash miss" id="flashMiss">Miss</div>
-    </div>
-
-    <div class="controls">
-      <input id="participantInput" placeholder="participant_id (optional)" />
-      <input id="blocksInput" type="number" min="1" max="20" value="10" />
-    </div>
-  </div>
-<!--allows HTML to talk to JS-->
-  <script src="app.js"></script>
+  <script src="outline.js"></script>
 </body>
 </html>
